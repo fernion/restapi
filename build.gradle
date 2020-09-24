@@ -1,0 +1,10 @@
+group = 'com.profidata.public.api'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	javaCompatibilityVersion = "14"
+}

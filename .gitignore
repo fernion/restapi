@@ -1,0 +1,23 @@
+# build outputs
+bin/
+build/
+out/
+target/
+target/
+
+# eclipse project metadata
+.metadata/
+.settings/
+.project
+.classpath
+
+# intellij project metadata
+.idea/
+*.iml
+
+# gradle metadata and user-specific settings
+.gradle
+gradle.properties
+
+# VS Code
+.vscode/

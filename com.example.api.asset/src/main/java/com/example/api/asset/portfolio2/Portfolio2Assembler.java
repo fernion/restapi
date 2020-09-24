@@ -29,7 +29,7 @@ public class Portfolio2Assembler extends RepresentationModelAssemblerSupport<Por
 		IssuerEntity issuerEntity = getIssuer(theEntity.getIssuerId());
 		portfolioModel.setDetails(CollectionModel.of(Arrays.asList(issuerAssembler.toModel(issuerEntity))));
 
-		//portfolioModel.add(linkTo(methodOn(Portfolio2Controller.class).getSingle(id)).withSelfRel());
+		portfolioModel.add(linkTo(methodOn(Portfolio2Controller.class).getSingle(id)).withSelfRel());
 
 		return portfolioModel;
 	}

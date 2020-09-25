@@ -15,6 +15,10 @@ public class IssuerDao {
 			String id = "i" + i;
 			dummyData.put(id, new IssuerEntity(id, "Issuer " + i));
 		}
+
+		String id = "some/id";
+		dummyData.put(id, new IssuerEntity(id, "Issuer with slashes in id"));
+
 	}
 
 	public List<IssuerEntity> getAll() {

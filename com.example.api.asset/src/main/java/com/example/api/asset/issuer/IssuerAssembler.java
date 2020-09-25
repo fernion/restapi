@@ -20,7 +20,7 @@ public class IssuerAssembler {
 		String id = theEntity.getId();
 		IssuerModel issuerModel = new IssuerModel(id, theEntity.getName());
 
-		issuerModel.add(linkTo(methodOn(IssuerController.class).getSingle(encodeId(id))).withSelfRel());
+		issuerModel.add(linkTo(methodOn(IssuerController.class).getSingle(id)).withSelfRel());
 
 		return issuerModel;
 	}
@@ -38,9 +38,5 @@ public class IssuerAssembler {
 
 	public String encodeId(String theId) {
 		return UriUtils.encode(theId, StandardCharsets.UTF_8);
-	}
-
-	public String decodeId(String theId) {
-		return UriUtils.decode(theId, StandardCharsets.UTF_8);
 	}
 }

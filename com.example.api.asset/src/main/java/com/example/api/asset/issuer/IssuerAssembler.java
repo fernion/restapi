@@ -3,13 +3,11 @@ package com.example.api.asset.issuer;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.stereotype.Component;
-import org.springframework.web.util.UriUtils;
 
 import com.example.api.asset.dao.IssuerEntity;
 
@@ -20,7 +18,7 @@ public class IssuerAssembler {
 		String id = theEntity.getId();
 		IssuerModel issuerModel = new IssuerModel(id, theEntity.getName());
 
-		issuerModel.add(linkTo(methodOn(IssuerController.class).getSingle(encodeId(id))).withSelfRel());
+		issuerModel.add(linkTo(methodOn(IssuerController.class).getSingle(id)).withSelfRel());
 
 		return issuerModel;
 	}
@@ -34,13 +32,5 @@ public class IssuerAssembler {
 		IssuerCollectionModel model = new IssuerCollectionModel(issuers);
 		model.add(linkTo(methodOn(IssuerController.class).getAll()).withSelfRel());
 		return model;
-	}
-
-	public String encodeId(String theId) {
-		return UriUtils.encode(theId, StandardCharsets.UTF_8);
-	}
-
-	public String decodeId(String theId) {
-		return UriUtils.decode(theId, StandardCharsets.UTF_8);
 	}
 }

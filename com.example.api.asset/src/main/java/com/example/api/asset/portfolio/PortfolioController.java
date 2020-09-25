@@ -2,7 +2,6 @@ package com.example.api.asset.portfolio;
 
 import java.util.List;
 
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.HttpEntity;
@@ -24,10 +23,10 @@ public class PortfolioController {
 	private PortfolioDao portfolioDao = new PortfolioDao();
 
 	@GetMapping
-	HttpEntity<CollectionModel<RepresentationModel<?>>> getAll() {
+	HttpEntity<PortfolioCollectionModel> getAll() {
 		List<PortfolioEntity> entities = portfolioDao.getAll();
 
-		CollectionModel<RepresentationModel<?>> model = assembler.toCollectionModel(entities);
+		PortfolioCollectionModel model = assembler.toCollectionModel(entities);
 
 		return new ResponseEntity<>(model, HttpStatus.OK);
 	}

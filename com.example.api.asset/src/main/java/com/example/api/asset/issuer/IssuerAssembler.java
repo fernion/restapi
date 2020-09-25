@@ -3,35 +3,44 @@ package com.example.api.asset.issuer;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.hateoas.RepresentationModel;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriUtils;
 
 import com.example.api.asset.dao.IssuerEntity;
 
 @Component
-public class IssuerAssembler extends RepresentationModelAssemblerSupport<IssuerEntity, IssuerModel> {
+public class IssuerAssembler {
 
-	public IssuerAssembler() {
-		super(IssuerController.class, IssuerModel.class);
-	}
-
-	@Override
 	public IssuerModel toModel(IssuerEntity theEntity) {
 		String id = theEntity.getId();
 		IssuerModel issuerModel = new IssuerModel(id, theEntity.getName());
 
-		issuerModel.add(linkTo(methodOn(IssuerController.class).getSingle(id)).withSelfRel());
+		issuerModel.add(linkTo(methodOn(IssuerController.class).getSingle(encodeId(id))).withSelfRel());
 
 		return issuerModel;
 	}
 
-	@Override
-	public CollectionModel<IssuerModel> toCollectionModel(Iterable<? extends IssuerEntity> theEntities) {
-		CollectionModel<IssuerModel> issuers = super.toCollectionModel(theEntities);
+	public IssuerCollectionModel toCollectionModel(Iterable<? extends IssuerEntity> theEntities) {
+		List<RepresentationModel<?>> issuers = new ArrayList<>();
+		for (IssuerEntity portfolioEntity : theEntities) {
+			issuers.add(toModel(portfolioEntity));
+		}
 
-		issuers.add(linkTo(methodOn(IssuerController.class).getAll()).withSelfRel());
+		IssuerCollectionModel model = new IssuerCollectionModel(issuers);
+		model.add(linkTo(methodOn(IssuerController.class).getAll()).withSelfRel());
+		return model;
+	}
 
-		return issuers;
+	public String encodeId(String theId) {
+		return UriUtils.encode(theId, StandardCharsets.UTF_8);
+	}
+
+	public String decodeId(String theId) {
+		return UriUtils.decode(theId, StandardCharsets.UTF_8);
 	}
 }

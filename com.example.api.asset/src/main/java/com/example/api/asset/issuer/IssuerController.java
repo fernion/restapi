@@ -2,7 +2,6 @@ package com.example.api.asset.issuer;
 
 import java.util.List;
 
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,7 @@ public class IssuerController {
 	private IssuerDao issuerDao = new IssuerDao();
 
 	@GetMapping
-	public HttpEntity<CollectionModel<IssuerModel>> getAll() {
+	public HttpEntity<IssuerCollectionModel> getAll() {
 		List<IssuerEntity> asList = issuerDao.getAll();
 		return new ResponseEntity<>(assembler.toCollectionModel(asList), HttpStatus.OK);
 	}

@@ -13,6 +13,13 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+	
+	//for generating the spec from code. Then use 'gradlew generateOpenApiDocs'
+	implementation 'org.springdoc:springdoc-openapi-core:1.1.49'
+	implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.4.8'
+	implementation 'org.springdoc:springdoc-openapi-hateoas:1.4.8'
+	
+	
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}

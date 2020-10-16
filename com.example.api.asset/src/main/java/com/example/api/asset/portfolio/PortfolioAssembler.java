@@ -10,19 +10,21 @@ import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.mediatype.hal.HalModelBuilder;
 import org.springframework.stereotype.Component;
 
+import com.example.api.asset.dao.IssuerDao;
 import com.example.api.asset.dao.IssuerEntity;
 import com.example.api.asset.dao.PortfolioEntity;
 import com.example.api.asset.issuer.IssuerAssembler;
 
 @Component
 public class PortfolioAssembler {
-	IssuerAssembler issuerAssembler = new IssuerAssembler();
+	private IssuerAssembler issuerAssembler = new IssuerAssembler();
+	private IssuerDao issuerDao = new IssuerDao();
 
 	public RepresentationModel<?> toModel(PortfolioEntity theEntity) {
 		String id = theEntity.getId();
 		PortfolioModel portfolioModel = new PortfolioModel(id, theEntity.getName());
 
-		IssuerEntity issuerEntity = getIssuer(theEntity.getIssuerId());
+		IssuerEntity issuerEntity = issuerDao.getSingle(theEntity.getIssuerId());
 
 		RepresentationModel<?> model = HalModelBuilder.halModelOf(portfolioModel)
 				.link(linkTo(methodOn(PortfolioController.class).getSingle(portfolioModel.getId())).withSelfRel())
@@ -41,10 +43,5 @@ public class PortfolioAssembler {
 		PortfolioCollectionModel model = new PortfolioCollectionModel(portfolioModels);
 		model.add(linkTo(methodOn(PortfolioController.class).getAll()).withSelfRel());
 		return model;
-	}
-
-	private IssuerEntity getIssuer(String theIssuerId) {
-		//TODO dummy representation
-		return new IssuerEntity(theIssuerId, "Issuer " + theIssuerId);
 	}
 }

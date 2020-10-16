@@ -16,7 +16,7 @@ public class IssuerAssembler {
 
 	public IssuerModel toModel(IssuerEntity theEntity) {
 		String id = theEntity.getId();
-		IssuerModel issuerModel = new IssuerModel(id, theEntity.getName());
+		IssuerModel issuerModel = new IssuerModel(id, theEntity.getName(), theEntity.getCountry());
 
 		issuerModel.add(linkTo(methodOn(IssuerController.class).getSingle(id)).withSelfRel());
 

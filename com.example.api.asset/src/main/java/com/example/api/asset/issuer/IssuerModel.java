@@ -1,23 +1,19 @@
 package com.example.api.asset.issuer;
 
-import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
+import com.example.api.asset.BaseModel;
+
 @Relation(collectionRelation = "issuers", itemRelation = "issuer")
-public class IssuerModel extends RepresentationModel<IssuerModel> {
-	private String id;
-	private String name;
+public class IssuerModel extends BaseModel<IssuerModel> {
+	private String country;
 
-	public IssuerModel(String theId, String theName) {
-		id = theId;
-		name = theName;
+	public IssuerModel(String theId, String theName, String theCountry) {
+		super(theId, theName);
+		country = theCountry;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public String getId() {
-		return id;
+	public String getCountry() {
+		return country;
 	}
 }

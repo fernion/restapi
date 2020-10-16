@@ -1,23 +1,13 @@
 package com.example.api.asset.portfolio;
 
-import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
+import com.example.api.asset.BaseModel;
+
 @Relation(collectionRelation = "portfolios")
-public class PortfolioModel extends RepresentationModel<PortfolioModel> {
-	private String id;
-	private String name;
+public class PortfolioModel extends BaseModel<PortfolioModel> {
 
 	public PortfolioModel(String theId, String theName) {
-		id = theId;
-		name = theName;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getId() {
-		return id;
+		super(theId, theName);
 	}
 }
